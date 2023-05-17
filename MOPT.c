@@ -30,7 +30,7 @@ int main()
 
     PrintItem(item, capacidade, quant);
 
-    printf("\n\nSolucao Obtida(MOP): %d\n\n", Mochila(capacidade, item, quant));
+    printf("\n\nSolucao Obtida(MOPT): %d\n\n", Mochila(capacidade, item, quant));
 
     free(item);
     return 0;
