@@ -25,7 +25,7 @@ int main()
 
     for (int i = 0; i<quant; i++) {
         item[i].peso = rand() % MAX_PESO + 1;
-        item[i].prioridade = rand() % 100 + 1;
+        item[i].prioridade = rand() % MAX_PRIORIDADE + 1;
     }
 
     PrintItem(item, capacidade, quant);
