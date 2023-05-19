@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_ITEM 20
-#define MAX_PESO 50
-#define MAX_PRIORIDADE 100
-#define CAPACIDADE 200
+#define MAX_ITEM 100
+#define MAX_PESO 190
+#define MAX_PRIORIDADE 90
+#define CAPACIDADE 500
 
 typedef struct{
     int peso;
@@ -19,15 +19,15 @@ int Mochila(int capacidade, Item *item, int quant);
 int main() 
 {
     srand(time(NULL));
-    int quant = rand() % MAX_ITEM + 5;
-    int capacidade = rand() % CAPACIDADE + 50;
+    int quant = MAX_ITEM;
+    int capacidade = CAPACIDADE;
     Item *item = malloc(quant*sizeof(Item));
 
     for (int i = 0; i<quant; i++) {
-        item[i].peso = rand() % MAX_PESO + 1;
-        item[i].prioridade = rand() % MAX_PRIORIDADE + 1;
+        item[i].peso = rand() % MAX_PESO + 11;
+        item[i].prioridade = rand() % MAX_PRIORIDADE + 11;
     }
-
+    
     PrintItem(item, capacidade, quant);
 
     printf("\n\nSolucao Obtida(MOT): %d\n\n", Mochila(capacidade, item, quant));
