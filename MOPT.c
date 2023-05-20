@@ -47,8 +47,8 @@ void Ordena(Item *item, int quant){
     double fator[2];
     for(int i=0; i<quant-1; i++){
         for(int j=0; j<quant-i-1; j++){
-            fator[0] = item[j].prioridade/item[j].peso;
-            fator[1] = item[j+1].prioridade/item[j+1].peso;
+            fator[0] = (double)item[j].prioridade/item[j].peso;
+            fator[1] = (double)item[j+1].prioridade/item[j+1].peso;
             if(fator[0] <= fator[1]){
                 if(fator[0]==fator[1] && item[j].peso<=item[j+1].peso){
                     continue; 
