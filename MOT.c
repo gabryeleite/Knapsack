@@ -24,8 +24,8 @@ int main()
     Item *item = malloc(quant*sizeof(Item));
 
     for (int i = 0; i<quant; i++) {
-        item[i].peso = rand() % MAX_PESO + 11;
-        item[i].prioridade = rand() % MAX_PRIORIDADE + 11;
+        item[i].peso = rand() % MAX_PESO + 10;
+        item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
     }
     
     PrintItem(item, capacidade, quant);
