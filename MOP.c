@@ -3,8 +3,8 @@
 #include <time.h>
 
 #define MAX_ITEM 100
-#define MAX_PESO 190
-#define MAX_PRIORIDADE 90
+#define MAX_PESO 191
+#define MAX_PRIORIDADE 91
 #define CAPACIDADE 500
 
 typedef struct{
@@ -24,8 +24,8 @@ int main()
     Item *item = malloc(quant*sizeof(Item));
 
     for (int i = 0; i<quant; i++) {
-        item[i].peso = rand() % MAX_PESO + 11;
-        item[i].prioridade = rand() % MAX_PRIORIDADE + 11;
+        item[i].peso = rand() % MAX_PESO + 10;
+        item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
     }
 
     PrintItem(item, capacidade, quant);
