@@ -12,8 +12,9 @@ typedef struct{
     int prioridade;
 } Item;
 
-void PrintItem(Item *item, int capacidade, int quant);
+void AtribuiDado(Item *item, int quant);
 void Ordena(Item *item, int quant);
+void PrintItem(Item *item, int capacidade, int quant);
 int Mochila(int capacidade, Item *item, int quant);
 
 int main() 
@@ -23,25 +24,28 @@ int main()
     int capacidade = CAPACIDADE;
     Item *item = malloc(quant*sizeof(Item));
 
+    AtribuiDado(item, quant);
+
+    Ordena(item, quant);
+
+    PrintItem(item, capacidade, quant);
+
+    int solucao = Mochila(capacidade, item, quant);
+
+    printf("\nSolucao Obtida(MOT): %d\n\n", solucao);
+
+    free(item);
+
+    return 0;
+}
+
+void AtribuiDado(Item *item, int quant){
     for (int i = 0; i<quant; i++) {
         item[i].peso = rand() % MAX_PESO + 10;
         item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
     }
-    
-    PrintItem(item, capacidade, quant);
-
-    printf("\n\nSolucao Obtida(MOT): %d\n\n", Mochila(capacidade, item, quant));
-
-    free(item);
-    return 0;
 }
-void PrintItem(Item *item, int capacidade, int quant){
-    printf("\nCAPACIDADE: %d\n", capacidade);
-    printf("\nITENS:\n");
-    for(int i=0; i<quant; i++){
-        printf("Item: %2d\tPeso: %2d\tPrioridade: %2d\n", i + 1, item[i].peso, item[i].prioridade);
-    }
-}
+
 void Ordena(Item *item, int quant){
     Item aux;
     for(int i=0; i<quant-1; i++){
@@ -57,17 +61,20 @@ void Ordena(Item *item, int quant){
             }
         }
     }
-    printf("\nPesos Ordenados:\n");
-    for(int i=0; i<quant; i++) printf("%d ", item[i].peso);
-    printf("\n\nPrioridades Ordenadas(Em relacao ao peso):\n");
-    for(int i=0; i<quant; i++) printf("%d ", item[i].prioridade);
 }
+
+void PrintItem(Item *item, int capacidade, int quant){
+    printf("\nCAPACIDADE: %d\n", capacidade);
+    printf("\nItens Ordenados pelo Fator:\n");
+    for(int i=0; i<quant; i++){
+        printf("Item: %2d\tPeso: %d\tPrioridade: %d\n", i + 1, item[i].peso, item[i].prioridade);
+    }
+}
+
 int Mochila(int capacidade, Item *item, int quant){
     int totalpeso = 0;
     int totalprioridade = 0;
     int i = 0;
-
-    Ordena(item, quant);
 
     while(i<quant){
         if(totalpeso + item[i].peso <= capacidade){
@@ -77,5 +84,6 @@ int Mochila(int capacidade, Item *item, int quant){
             i++;
         }
     }
+
     return totalprioridade;
 }
