@@ -10,10 +10,12 @@
 typedef struct{
     int peso;
     int prioridade;
+    double fator;
 } Item;
 
-void PrintItem(Item *item, int capacidade, int quant);
+void AtribuiDado(Item *item, int quant);
 void Ordena(Item *item, int quant);
+void PrintItem(Item *item, int capacidade, int quant);
 int Mochila(int capacidade, Item *item, int quant);
 
 int main() 
@@ -23,34 +25,43 @@ int main()
     int capacidade = CAPACIDADE;
     Item *item = malloc(quant*sizeof(Item));
 
-    for (int i = 0; i<quant; i++) {
-        item[i].peso = rand() % MAX_PESO + 10;
-        item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
-    }
+    AtribuiDado(item, quant);
+
+    Ordena(item, quant);
 
     PrintItem(item, capacidade, quant);
 
-    printf("\n\nSolucao Obtida(MOPT): %d\n\n", Mochila(capacidade, item, quant));
+    int solucao = Mochila(capacidade, item, quant);
+
+    printf("\nSolucao Obtida(MOPT): %d\n\n", solucao);
 
     free(item);
+
     return 0;
 }
-void PrintItem(Item *item, int capacidade, int quant){
-    printf("\nCAPACIDADE: %d\n", capacidade);
-    printf("\nITENS:\n");
-    for(int i=0; i<quant; i++){
-        printf("Item: %2d\tPeso: %2d\tPrioridade: %2d\n", i + 1, item[i].peso, item[i].prioridade);
+
+void AtribuiDado(Item *item, int quant){
+    for (int i = 0; i<quant; i++) {
+        item[i].peso = rand() % MAX_PESO + 10;
+        item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
+        item[i].fator = (double)item[i].prioridade / item[i].peso;
     }
 }
+
+void PrintItem(Item *item, int capacidade, int quant){
+    printf("\nCAPACIDADE: %d\n", capacidade);
+    printf("\nItens Ordenados pelo Fator:\n");
+    for(int i=0; i<quant; i++){
+        printf("Item: %2d\tPeso: %d\tPrioridade: %d\tFator: %.6lf\n", i + 1, item[i].peso, item[i].prioridade, item[i].fator);
+    }
+}
+
 void Ordena(Item *item, int quant){
     Item aux;
-    double fator[2];
     for(int i=0; i<quant-1; i++){
         for(int j=0; j<quant-i-1; j++){
-            fator[0] = (double)item[j].prioridade/item[j].peso;
-            fator[1] = (double)item[j+1].prioridade/item[j+1].peso;
-            if(fator[0] <= fator[1]){
-                if(fator[0]==fator[1] && item[j].peso<=item[j+1].peso){
+            if(item[j].fator <= item[j+1].fator){
+                if(item[j].fator==item[j+1].fator && item[j].peso<=item[j+1].peso){
                     continue; 
                 }else{
                     aux = item[j];
@@ -60,19 +71,12 @@ void Ordena(Item *item, int quant){
             }
         }
     }
-    printf("\nFator Ordenado(prioridade/peso):\n");
-    for(int i=0; i<quant; i++) printf("%.4f ", (float)item[i].prioridade/item[i].peso);
-    printf("\n\nPesos Ordenados(Em relacao ao fator):\n");
-    for(int i=0; i<quant; i++) printf("%d ", item[i].peso);
-    printf("\n\nPrioridades Ordenadas(Em relacao ao fator):\n");
-    for(int i=0; i<quant; i++) printf("%d ", item[i].prioridade);
 }
+
 int Mochila(int capacidade, Item *item, int quant){
     int totalpeso = 0;
     int totalprioridade = 0;
     int i = 0;
-
-    Ordena(item, quant);
 
     while(i<quant){
         if(totalpeso + item[i].peso <= capacidade){
@@ -82,5 +86,6 @@ int Mochila(int capacidade, Item *item, int quant){
             i++;
         }
     }
+
     return totalprioridade;
 }
