@@ -65,7 +65,7 @@ void Ordena(Item *item, int quant){
 
 void PrintItem(Item *item, int capacidade, int quant){
     printf("\nCAPACIDADE: %d\n", capacidade);
-    printf("\nItens Ordenados pelo Fator:\n");
+    printf("\nItens Ordenados pela Prioridade:\n");
     for(int i=0; i<quant; i++){
         printf("Item: %2d\tPeso: %d\tPrioridade: %d\n", i + 1, item[i].peso, item[i].prioridade);
     }
