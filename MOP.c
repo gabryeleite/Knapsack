@@ -32,7 +32,7 @@ int main()
 
     int solucao = Mochila(capacidade, item, quant);
 
-    printf("\nSolucao Obtida(MOPT): %d\n\n", solucao);
+    printf("\nSolucao Obtida(MOP): %d\n\n", solucao);
 
     free(item);
 
