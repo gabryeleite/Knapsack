@@ -18,7 +18,7 @@ int main()
     for(int j=0; j < 100; j++)
     {
         Item *item = malloc(MAX_ITEM * sizeof(Item));
-        FILE *file = fopen("P1.txt","a");
+        FILE *file = fopen("nome.txt","a");
 
         for(int i = 0; i < MAX_ITEM; i++) {
             item[i].peso = rand() % MAX_PESO + 10;
