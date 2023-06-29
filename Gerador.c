@@ -14,17 +14,22 @@ typedef struct{
 int main()
 {
     srand(time(NULL));
-    Item *item = malloc(MAX_ITEM * sizeof(Item));
-    FILE *file = fopen("nome.txt","w");
 
-    for (int i = 0; i < MAX_ITEM; i++) {
-        item[i].peso = rand() % MAX_PESO + 200;
-        item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
-        fprintf(file, "%d %d\n", item[i].peso, item[i].prioridade);
+    for(int j=0; j < 100; j++)
+    {
+        Item *item = malloc(MAX_ITEM * sizeof(Item));
+        FILE *file = fopen("P1.txt","a");
+
+        for(int i = 0; i < MAX_ITEM; i++) {
+            item[i].peso = rand() % MAX_PESO + 10;
+            item[i].prioridade = rand() % MAX_PRIORIDADE + 10;
+            fprintf(file, "%d %d\n", item[i].peso, item[i].prioridade);
+        }
+        fclose(file);
+
+        free(item);
     }
-    fclose(file);
-
-    free(item);
+    printf("Arquivo criado com sucesso!\n");
 
     return 0;
 }
